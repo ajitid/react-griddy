@@ -1,0 +1,20 @@
+.muuri-item-dragging {
+  z-index: 100;
+}
+
+.muuri-item-releasing {
+  z-index: 100;
+}
+
+/* not from Muuri lib, custom */
+.muuri-item-resizing {
+  z-index: 100;
+}
+
+.packing-grid-size-preview-box {
+  position: fixed;
+  z-index: 100;
+  background-color: #1e88e566;
+  opacity: 40%;
+  transition: all 2s;
+}
