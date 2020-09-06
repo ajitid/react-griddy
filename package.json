@@ -1,11 +1,12 @@
 {
   "name": "react-griddy",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "",
   "source": "src/index.ts",
   "main": "dist/react-griddy.js",
   "module": "dist/react-griddy.module.js",
-  "unpkg": "dist/react-griddy.umd.js",
+  "umd:main": "dist/react-griddy.umd.js",
+  "types": "src/index",
   "scripts": {
     "build": "microbundle --jsx=React.createElement",
     "watch": "microbundle watch --jsx=React.createElement",
@@ -14,6 +15,11 @@
   "keywords": [],
   "author": "Ajit Singh",
   "license": "MIT",
+  "files": [
+    "README.md",
+    "dist",
+    "react-griddy.d.ts"
+  ],
   "devDependencies": {
     "@types/react": "^16.9.49",
     "microbundle": "^0.12.0-next.9",
