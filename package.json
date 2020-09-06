@@ -1,11 +1,12 @@
 {
   "name": "react-griddy",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "",
   "source": "src/index.ts",
   "main": "dist/react-griddy.js",
   "module": "dist/react-griddy.module.js",
-  "unpkg": "dist/react-griddy.umd.js",
+  "umd:main": "dist/react-griddy.umd.js",
+  "unpkg": "dist/react-griddy.min.js",
   "files": [
     "dist"
   ],
