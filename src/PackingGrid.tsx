@@ -67,7 +67,7 @@ const PackingGrid: React.FC<{
   }, []);
 
   useEffect(() => {
-    if (grid === null) return;
+    if (grid == null) return;
 
     const handleLayoutEnd = (items: Item[]) => {
       const idsWithNull = items.map(

@@ -58,7 +58,7 @@ const useItem = ({
   });
 
   useEffect(() => {
-    if (grid === null) return;
+    if (grid == null) return;
 
     const handleDragStart = (muuriItem: Item) => {
       const muuriItemEl = muuriItem.getElement();

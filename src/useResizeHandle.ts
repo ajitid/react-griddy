@@ -30,11 +30,11 @@ const useResizeHandle = ({
     const container = containerRef.current;
     const item = itemRef.current;
 
-    if (handle === null || container === null || item === null) return;
+    if (handle == null || container == null || item == null) return;
 
     function handleMouseDown(e: MouseEvent) {
       e.preventDefault();
-      if (handle === null || container === null || item === null) return;
+      if (handle == null || container == null || item == null) return;
 
       item.classList.add("muuri-item-resizing");
       onResizeStart();
@@ -52,7 +52,7 @@ const useResizeHandle = ({
       };
 
       function resize(e: MouseEvent) {
-        if (handle === null || container === null || item === null) return;
+        if (handle == null || container == null || item == null) return;
 
         const containerRect = container.getBoundingClientRect();
 
@@ -117,7 +117,7 @@ const useResizeHandle = ({
       }
 
       function stopResize() {
-        if (handle === null || container === null || item === null) return;
+        if (handle == null || container == null || item == null) return;
 
         container.style.height = `${finalSize.height}px`;
         container.style.width = `${finalSize.width}px`;

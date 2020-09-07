@@ -63,7 +63,7 @@ const SizePreviewBox: React.FC = ({ children }) => {
   // handle of the item.
   const setPosition = useCallback<SetPositionShape>(
     (options, item, height) => {
-      if (gridElRef.current === null) return { ...options, size: [-1, -1] };
+      if (gridElRef.current == null) return { ...options, size: [-1, -1] };
 
       const computed = getComputedStyle(item);
       const itemMargins = {
@@ -74,7 +74,7 @@ const SizePreviewBox: React.FC = ({ children }) => {
       };
       const itemRect = item.getBoundingClientRect();
 
-      if (options.width !== undefined) {
+      if (options.width != null) {
         const totalWidth =
           itemMargins.left + itemRect.width + itemMargins.right;
         const perColWidth = gridWidth / cols;
@@ -106,7 +106,7 @@ const SizePreviewBox: React.FC = ({ children }) => {
         }
       }
 
-      if (options.height !== undefined) {
+      if (options.height != null) {
         const totalHeight =
           itemMargins.top + itemRect.height + itemMargins.bottom;
         const perColHeight = itemMargins.top + height + itemMargins.bottom;

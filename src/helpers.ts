@@ -1,7 +1,7 @@
 /**
  * Checks if code is running in development environment
  */
-export const inDevelopment = () => process.env.NODE_ENV === 'development';
+export const inDevelopment = () => process.env.NODE_ENV === "development";
 
 /**
  * No operation
@@ -17,7 +17,7 @@ const curryRange = (func: RangeFunction) => (
   min: number,
   max: number,
   v?: number
-) => (v !== undefined ? func(min, max, v) : (cv: number) => func(min, max, cv));
+) => (v != null ? func(min, max, v) : (cv: number) => func(min, max, cv));
 
 const _clamp = (min: number, max: number, v: number) =>
   Math.min(Math.max(v, min), max);
@@ -30,10 +30,10 @@ export class SetOperations {
   }
 
   static intersection<T>(a: Set<T>, b: Set<T>) {
-    return new Set([...a].filter(x => b.has(x)));
+    return new Set([...a].filter((x) => b.has(x)));
   }
 
   static difference<T>(a: Set<T>, b: Set<T>) {
-    return new Set([...a].filter(x => !b.has(x)));
+    return new Set([...a].filter((x) => !b.has(x)));
   }
 }
