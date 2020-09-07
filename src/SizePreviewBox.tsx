@@ -42,7 +42,9 @@ export const SizePreviewBoxContext = createContext<SizePreviewBoxContextShape>({
  * resize handle.
  */
 const SizePreviewBox: React.FC = ({ children }) => {
-  const { gridWidth, cols, elRef: gridElRef } = useContext(PackingGridContext);
+  const { gridWidth, cols, elRef: gridElRef, itemHeight } = useContext(
+    PackingGridContext
+  );
 
   // Toggle visibility of preview box
   const [show, setShow] = useState(false);
@@ -118,10 +120,13 @@ const SizePreviewBox: React.FC = ({ children }) => {
             perColHeight -
             (itemMargins.top + itemMargins.bottom);
         } else {
-          options.height =
+          options.height = clamp(
+            itemHeight,
+            Infinity,
             totalHeight -
-            insideColBoundsHeight -
-            (itemMargins.top + itemMargins.bottom);
+              insideColBoundsHeight -
+              (itemMargins.top + itemMargins.bottom)
+          );
         }
       }
 
