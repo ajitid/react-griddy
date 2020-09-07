@@ -1,17 +1,16 @@
-import { useCallback, RefObject, useContext, useEffect } from 'react';
-import { Item } from 'muuri';
+import { useCallback, RefObject, useContext, useEffect } from "react";
+import type { Item } from "muuri";
 
-import useScaleWithItem from './useScaleWithItem';
-import { PackingGridContext } from './PackingGrid';
-import useResizeHandle, { OnResizeDoneShape } from './useResizeHandle';
-import useDragHandle from './useDragHandle';
-import { ItemContext } from './Item';
-import { noop } from 'helpers';
+import useScaleWithItem from "./useScaleWithItem";
+import { PackingGridContext } from "./contexts";
+import useResizeHandle, { OnResizeDoneShape } from "./useResizeHandle";
+import useDragHandle from "./useDragHandle";
+import { ItemContext } from "./Item";
+import { noop } from "helpers";
 
 interface UseItemOptions {
-  height: number;
-  containerRef: RefObject<HTMLElement>;
-  resizeHandleRef: RefObject<HTMLElement>;
+  containerRef: RefObject<HTMLElement | null>;
+  resizeHandleRef: RefObject<HTMLElement | null>;
   onResizeStart?: Function;
   onResizeDone?: Function;
   onDragStart?: Function;
@@ -25,20 +24,21 @@ interface UseItemOptions {
  */
 const useItem = ({
   containerRef,
-  height,
   resizeHandleRef,
   onResizeStart = noop,
   onResizeDone = noop,
   onDragStart = noop,
   onDragDone = noop,
 }: UseItemOptions) => {
-  const { relayout, onResize, grid } = useContext(PackingGridContext);
+  const { relayout, onResize, grid, itemHeight: height } = useContext(
+    PackingGridContext
+  );
   const { itemId } = useContext(ItemContext);
 
   useScaleWithItem(containerRef, height);
 
   const handleResizeDone = useCallback<OnResizeDoneShape>(
-    pos => {
+    (pos) => {
       relayout();
       onResizeDone();
       onResize(itemId, pos);
@@ -63,7 +63,7 @@ const useItem = ({
         onDragStart();
       }
     };
-    grid.on('dragStart', handleDragStart);
+    grid.on("dragStart", handleDragStart);
 
     const handleDragDone = (muuriItem: Item) => {
       const muuriItemEl = muuriItem.getElement();
@@ -72,11 +72,11 @@ const useItem = ({
         onDragDone();
       }
     };
-    grid.on('dragEnd', handleDragDone);
+    grid.on("dragEnd", handleDragDone);
 
     return () => {
-      grid.off('dragStart', handleDragStart);
-      grid.off('dragEnd', handleDragDone);
+      grid.off("dragStart", handleDragStart);
+      grid.off("dragEnd", handleDragDone);
     };
   }, [grid, itemId, onDragDone, onDragStart]);
   const dragProps = useDragHandle();

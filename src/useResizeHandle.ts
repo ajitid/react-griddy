@@ -1,15 +1,15 @@
-import { useEffect, RefObject, useContext } from 'react';
-import { noop } from 'helpers';
-import { SizePreviewBoxContext } from './SizePreviewBox';
-import { ItemContext } from './Item';
+import { useEffect, RefObject, useContext } from "react";
+import { noop } from "helpers";
+import { SizePreviewBoxContext } from "./SizePreviewBox";
+import { ItemContext } from "./Item";
 
 export interface OnResizeDoneShape {
   (size: [number, number]): void;
 }
 
 interface UseResizeHandleAttrsShape {
-  handleRef: RefObject<HTMLElement>;
-  containerRef: RefObject<HTMLElement>;
+  handleRef: RefObject<HTMLElement | null>;
+  containerRef: RefObject<HTMLElement | null>;
   height: number;
   onResizeStart?: Function;
   onResizeDone?: OnResizeDoneShape;
@@ -36,7 +36,7 @@ const useResizeHandle = ({
       e.preventDefault();
       if (handle === null || container === null || item === null) return;
 
-      item.classList.add('muuri-item-resizing');
+      item.classList.add("muuri-item-resizing");
       onResizeStart();
 
       let isFirstResizeDone = false;
@@ -121,22 +121,22 @@ const useResizeHandle = ({
 
         container.style.height = `${finalSize.height}px`;
         container.style.width = `${finalSize.width}px`;
-        item.classList.remove('muuri-item-resizing');
+        item.classList.remove("muuri-item-resizing");
         setShow(false);
         onResizeDone(finalSize.size);
 
-        window.removeEventListener('pointermove', resize);
-        window.removeEventListener('pointerup', stopResize);
+        window.removeEventListener("pointermove", resize);
+        window.removeEventListener("pointerup", stopResize);
       }
 
-      window.addEventListener('pointermove', resize);
-      window.addEventListener('pointerup', stopResize);
+      window.addEventListener("pointermove", resize);
+      window.addEventListener("pointerup", stopResize);
     }
 
-    handle.addEventListener('mousedown', handleMouseDown);
+    handle.addEventListener("mousedown", handleMouseDown);
 
     return () => {
-      handle.removeEventListener('mousedown', handleMouseDown);
+      handle.removeEventListener("mousedown", handleMouseDown);
     };
   }, [
     containerRef,

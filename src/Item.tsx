@@ -2,14 +2,14 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  MutableRefObject,
+  RefObject,
   createContext,
 } from "react";
 
-import { PackingGridContext } from "./PackingGrid";
+import { PackingGridContext } from "./contexts";
 
 interface ItemContextShape {
-  itemRef: MutableRefObject<HTMLDivElement | null>;
+  itemRef: RefObject<HTMLDivElement | null>;
   w: number;
   h: number;
   itemId: string;

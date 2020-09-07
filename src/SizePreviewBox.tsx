@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext, useCallback } from "react";
 
-import { PackingGridContext } from "./PackingGrid";
+import { PackingGridContext } from "./contexts";
 import { noop, clamp } from "helpers";
 
 interface RectOptional {

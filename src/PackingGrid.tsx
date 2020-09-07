@@ -1,11 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  createContext,
-  useEffect,
-  useCallback,
-  RefObject,
-} from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import Muuri, { Item } from "muuri";
 import useDimensions from "react-cool-dimensions";
 
@@ -13,28 +6,7 @@ import { noop } from "./helpers";
 import SizePreviewBox from "./SizePreviewBox";
 
 import "./packing-grid.css";
-
-interface PackingGridContextShape {
-  grid: Muuri | null;
-  relayout: () => void;
-  cols: number;
-  gridWidth: number;
-  elRef: RefObject<HTMLDivElement>;
-  onResize: (itemId: string, size: [number, number]) => void;
-  spacing: string | number;
-}
-
-export const PackingGridContext = createContext<PackingGridContextShape>({
-  grid: null,
-  relayout: noop,
-  cols: 1,
-  gridWidth: 0,
-  elRef: {
-    current: null,
-  },
-  onResize: noop,
-  spacing: 0,
-});
+import { PackingGridContext } from "./contexts";
 
 export interface OnResizeShape {
   (itemId: string, size: [number, number]): void;
@@ -58,12 +30,14 @@ const PackingGrid: React.FC<{
   onResize?: OnResizeShape;
   cols: number;
   spacing?: string | number;
+  itemHeight: number;
 }> = ({
   children,
   onLayoutChange = noop,
   cols,
   onResize = noop,
   spacing = 0,
+  itemHeight,
 }) => {
   const elRef = useRef<HTMLDivElement | null>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
@@ -132,7 +106,16 @@ const PackingGrid: React.FC<{
 
   return (
     <PackingGridContext.Provider
-      value={{ grid, relayout, cols, gridWidth, elRef, onResize, spacing }}
+      value={{
+        grid,
+        relayout,
+        cols,
+        gridWidth,
+        elRef,
+        onResize,
+        spacing,
+        itemHeight,
+      }}
     >
       <SizePreviewBox>
         <div ref={elRef} style={{ position: "relative" }}>
