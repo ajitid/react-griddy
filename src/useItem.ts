@@ -1,4 +1,4 @@
-import { useCallback, RefObject, useContext, useEffect } from "react";
+import { useCallback, RefObject, useContext, useEffect, useRef } from "react";
 import type { Item } from "muuri";
 
 import useScaleWithItem from "./useScaleWithItem";
@@ -10,7 +10,7 @@ import { noop } from "helpers";
 
 interface UseItemOptions {
   containerRef: RefObject<HTMLElement | null>;
-  resizeHandleRef: RefObject<HTMLElement | null>;
+  resizeHandleRef?: RefObject<HTMLElement | null>;
   onResizeStart?: Function;
   onResizeDone?: Function;
   onDragStart?: Function;
@@ -45,8 +45,12 @@ const useItem = ({
     },
     [itemId, onResize, onResizeDone, relayout]
   );
+
+  const __DECOY__resizeHandleRef = useRef<null>(null);
+
   useResizeHandle({
-    handleRef: resizeHandleRef,
+    handleRef:
+      resizeHandleRef == null ? __DECOY__resizeHandleRef : resizeHandleRef,
     containerRef,
     height,
     onResizeStart,
