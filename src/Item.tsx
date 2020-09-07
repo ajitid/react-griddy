@@ -52,7 +52,7 @@ const Item: React.FC<ItemProps> = ({
   w = 1,
   h = 1,
 }) => {
-  const { grid } = useContext(PackingGridContext);
+  const { grid, spacing } = useContext(PackingGridContext);
   const itemRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Item: React.FC<ItemProps> = ({
       data-grid-item-id={itemId}
       ref={itemRef}
       className={className}
-      style={{ ...style, position: "absolute" }}
+      style={{ ...style, position: "absolute", margin: spacing }}
     >
       <ItemContext.Provider value={{ itemRef, w, h, itemId }}>
         {children}
