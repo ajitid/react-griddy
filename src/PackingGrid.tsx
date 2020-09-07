@@ -56,7 +56,7 @@ const PackingGrid: React.FC<{
   onResize?: OnResizeShape;
   cols: number;
 }> = ({ children, onLayoutChange = noop, cols, onResize = noop }) => {
-  const elRef = useRef<HTMLDivElement>(null);
+  const elRef = useRef<HTMLDivElement | null>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
 
   useEffect(() => {
