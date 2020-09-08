@@ -31,6 +31,7 @@ const PackingGrid: React.FC<{
   cols: number;
   spacing?: string | number;
   itemHeight: number;
+  draggable?: boolean;
 }> = ({
   children,
   onLayoutChange = noop,
@@ -38,6 +39,7 @@ const PackingGrid: React.FC<{
   onResize = noop,
   spacing = 0,
   itemHeight,
+  draggable = false,
 }) => {
   const elRef = useRef<HTMLDivElement | null>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
@@ -45,7 +47,7 @@ const PackingGrid: React.FC<{
   useEffect(() => {
     if (!elRef.current) return;
     const grid = new Muuri(elRef.current, {
-      dragEnabled: true,
+      dragEnabled: draggable,
       dragHandle: "[data-grid-item-drag-handle]",
       layout: {
         fillGaps: true,
@@ -64,7 +66,7 @@ const PackingGrid: React.FC<{
     return () => {
       grid.destroy();
     };
-  }, []);
+  }, [draggable]);
 
   useEffect(() => {
     if (grid == null) return;
