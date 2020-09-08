@@ -32,8 +32,9 @@ const useResizeHandle = ({
 
     if (handle == null || container == null || item == null) return;
 
-    function handleMouseDown(e: MouseEvent) {
+    function handlePointerDown(e: MouseEvent) {
       e.preventDefault();
+      e.stopPropagation();
       if (handle == null || container == null || item == null) return;
 
       item.classList.add("muuri-item-resizing");
@@ -133,10 +134,10 @@ const useResizeHandle = ({
       window.addEventListener("pointerup", stopResize);
     }
 
-    handle.addEventListener("mousedown", handleMouseDown);
+    handle.addEventListener("pointerdown", handlePointerDown);
 
     return () => {
-      handle.removeEventListener("mousedown", handleMouseDown);
+      handle.removeEventListener("pointerdown", handlePointerDown);
     };
   }, [
     containerRef,
